@@ -6,21 +6,21 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="text-2xl font-bold">
-            SHOP
+            정빵사
           </Link>
 
           <div className="hidden md:flex space-x-8">
             <Link href="/products" className="hover:text-gray-600">
-              상품
+              스콘
             </Link>
             <Link href="/new-arrivals" className="hover:text-gray-600">
-              신상품
+              휘낭시에
             </Link>
             <Link href="/best" className="hover:text-gray-600">
-              베스트
+              케이콘
             </Link>
             <Link href="/sale" className="hover:text-gray-600">
-              세일
+              음료
             </Link>
           </div>
 
