@@ -5,7 +5,7 @@ export default function HeroSection() {
   return (
     <section className="relative h-[600px]">
       <Image
-        src="/images/hero-banner.jpg"
+        src="/images/banners/hero-banner.jpg"
         alt="메인 배너"
         fill
         className="object-cover"
