@@ -25,9 +25,6 @@ export default function Header() {
           </div>
 
           <div className="flex items-center space-x-4">
-            <Link href="/search" className="hover:text-gray-600">
-              <span className="material-icons">search</span>
-            </Link>
             <Link href="/cart" className="hover:text-gray-600">
               <span className="material-icons">shopping_cart</span>
             </Link>
