@@ -14,18 +14,28 @@ export default function BestProducts() {
   const products: Product[] = [
     {
       id: 1,
-      name: '베이직 티셔츠',
-      price: 29000,
-      image: '/images/product-1.jpg',
+      name: '시오사토',
+      price: 3500,
+      image: '/images/products/siosato.webp',
     },
-    { id: 2, name: '데님 팬츠', price: 59000, image: '/images/product-2.jpg' },
+    {
+      id: 2,
+      name: '베리스콘',
+      price: 4500,
+      image: '/images/products/berry.webp',
+    },
     {
       id: 3,
-      name: '캔버스 스니커즈',
-      price: 49000,
-      image: '/images/product-3.jpg',
+      name: '에그마니',
+      price: 3800,
+      image: '/images/products/eggmani.webp',
     },
-    { id: 4, name: '후드 집업', price: 69000, image: '/images/product-4.jpg' },
+    {
+      id: 4,
+      name: '초코사토',
+      price: 4000,
+      image: '/images/products/choco.webp',
+    },
   ];
 
   const addToCart = async (product: Product) => {
