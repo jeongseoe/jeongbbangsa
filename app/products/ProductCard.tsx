@@ -3,9 +3,13 @@
 import Image from 'next/image';
 import { Product } from '@/types/product';
 
+interface ProductWithDescription extends Product {
+  description?: string;
+}
+
 interface ProductCardProps {
-  product: Product;
-  onAddToCart: (product: Product) => void;
+  product: ProductWithDescription;
+  onAddToCart: (product: ProductWithDescription) => void;
 }
 
 export default function ProductCard({
@@ -19,9 +23,17 @@ export default function ProductCard({
           src={product.image}
           alt={product.name}
           fill
-          className="object-cover rounded-t-lg"
+          className="object-cover rounded-t-lg transition-opacity group-hover:opacity-0"
         />
-        <div className="absolute top-4 right-4 group/tooltip">
+        <div className="absolute inset-0 bg-black bg-opacity-70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-center">
+          <p
+            className="text-white text-center leading-relaxed"
+            style={{ whiteSpace: 'pre' }}
+          >
+            {product.description || '상품 설명이 없습니다.'}
+          </p>
+        </div>
+        <div className="absolute top-4 right-4 group/tooltip z-10">
           <button
             onClick={() => onAddToCart(product)}
             className="w-10 h-10 rounded-full bg-white shadow-md text-gray-700 flex items-center justify-center hover:bg-gray-100 transition-all opacity-0 group-hover:opacity-100"
