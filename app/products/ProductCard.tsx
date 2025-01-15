@@ -1,21 +1,29 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 import { Product } from '@/types/product';
 
-interface ProductWithDescription extends Product {
-  description?: string;
-}
+export default function ProductCard({ product }: { product: Product }) {
+  const [showCartModal, setShowCartModal] = useState(false);
+  const router = useRouter();
 
-interface ProductCardProps {
-  product: ProductWithDescription;
-  onAddToCart: (product: ProductWithDescription) => void;
-}
+  const addToCart = () => {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    cart.push(product);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    setShowCartModal(true);
+  };
 
-export default function ProductCard({
-  product,
-  onAddToCart,
-}: ProductCardProps) {
+  const goToCart = () => {
+    router.push('/cart');
+  };
+
+  const continueShopping = () => {
+    setShowCartModal(false);
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow relative group">
       <div className="relative h-64">
@@ -35,7 +43,7 @@ export default function ProductCard({
         </div>
         <div className="absolute top-4 right-4 group/tooltip z-10">
           <button
-            onClick={() => onAddToCart(product)}
+            onClick={addToCart}
             className="w-10 h-10 rounded-full bg-white shadow-md text-gray-700 flex items-center justify-center hover:bg-gray-100 transition-all opacity-0 group-hover:opacity-100"
             aria-label="장바구니에 담기"
           >
@@ -65,6 +73,32 @@ export default function ProductCard({
         <h3 className="font-semibold mb-2">{product.name}</h3>
         <p className="text-gray-600">₩{product.price.toLocaleString()}</p>
       </div>
+
+      {/* 장바구니 추가 완료 모달 */}
+      {showCartModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full mx-4">
+            <h2 className="text-xl font-bold mb-4">
+              장바구니에 추가되었습니다
+            </h2>
+            <p className="text-gray-600 mb-6">장바구니로 이동하시겠습니까?</p>
+            <div className="flex justify-end space-x-4">
+              <button
+                onClick={continueShopping}
+                className="px-4 py-2 text-gray-600 hover:text-gray-800"
+              >
+                계속 쇼핑하기
+              </button>
+              <button
+                onClick={goToCart}
+                className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800"
+              >
+                장바구니로 이동
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
