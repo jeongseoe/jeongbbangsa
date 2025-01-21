@@ -10,10 +10,10 @@ export default function Header() {
           </Link>
 
           <div className="hidden md:flex space-x-8">
-            <Link href="/products" className="hover:text-gray-600">
+            <Link href="/scone" className="hover:text-gray-600">
               스콘
             </Link>
-            <Link href="/new-arrivals" className="hover:text-gray-600">
+            <Link href="/financier" className="hover:text-gray-600">
               휘낭시에
             </Link>
             <Link href="/best" className="hover:text-gray-600">
