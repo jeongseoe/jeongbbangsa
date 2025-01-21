@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import ProductCard from '@/app/products/ProductCard';
-import ProductFilter from '@/app/products/ProductFilter';
-import ProductSort from '@/app/products/ProductSort';
+import ProductCard from '@/app/scone/ProductCard';
+import ProductFilter from '@/app/scone/ProductFilter';
+import ProductSort from '@/app/scone/ProductSort';
 import { Product } from '@/types/product';
 
 export default function ProductsPage() {
@@ -81,50 +81,26 @@ export default function ProductsPage() {
     },
   ];
 
-  const [selectedCategory, setSelectedCategory] = useState<string>('전체');
   const [sortBy, setSortBy] = useState<string>('신상품순');
 
-  const categories = ['전체', '의류', '신발', '가방'];
   const sortOptions = ['신상품순', '가격 낮은순', '가격 높은순'];
 
-  const addToCart = async (product: Product) => {
-    try {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      cart.push(product);
-      localStorage.setItem('cart', JSON.stringify(cart));
-      alert('장바구니에 추가되었습니다!');
-    } catch (error) {
-      alert('장바구니 추가 실패');
+  const filteredProducts = products.sort((a, b) => {
+    switch (sortBy) {
+      case '가격 낮은순':
+        return a.price - b.price;
+      case '가격 높은순':
+        return b.price - a.price;
+      default:
+        return a.id - b.id;
     }
-  };
-
-  const filteredProducts = products
-    .filter((product) =>
-      selectedCategory === '전체'
-        ? true
-        : product.category === selectedCategory,
-    )
-    .sort((a, b) => {
-      switch (sortBy) {
-        case '가격 낮은순':
-          return a.price - b.price;
-        case '가격 높은순':
-          return b.price - a.price;
-        default:
-          return a.id - b.id;
-      }
-    });
+  });
 
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-8">상품 목록</h1>
 
       <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-center space-y-4 md:space-y-0">
-        <ProductFilter
-          categories={categories}
-          selectedCategory={selectedCategory}
-          onCategoryChange={setSelectedCategory}
-        />
         <ProductSort
           sortOptions={sortOptions}
           currentSort={sortBy}
@@ -134,10 +110,7 @@ export default function ProductsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {filteredProducts.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-          />
+          <ProductCard key={product.id} product={product} />
         ))}
       </div>
     </div>

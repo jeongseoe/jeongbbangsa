@@ -1,5 +1,5 @@
 import HeroSection from '@/components/HeroSection';
-import BestProducts from '@/app/products/BestProducts';
+import BestProducts from '@/app/scone/BestProducts';
 
 export default function Home() {
   return (
